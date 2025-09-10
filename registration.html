@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button.submit-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button.submit-btn:hover {
+      background-color: #45a049;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registration-form">
+      <div class="input-group">
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+      </div>
+      <div class="input-group">
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required>
+      </div>
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+      </div>
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" required>
+        <div class="error" id="password-error"></div>
+      </div>
+      <div class="input-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+      </div>
+      <div class="input-group">
+        <button type="submit" class="submit-btn">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registration-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const errorEl = document.getElementById("password-error");
+
+      if (password !== confirmPassword) {
+        errorEl.textContent = "Passwords do not match.";
+        return;
+      } else {
+        errorEl.textContent = "";
+      }
+
+      const user = {
+        firstName: document.getElementById("first-name").value,
+        lastName: document.getElementById("last-name").value,
+        username: document.getElementById("username").value,
+        password: password,
+        gender: document.getElementById("gender").value,
+        dob: document.getElementById("dob").value
+      };
+
+      localStorage.setItem("user", JSON.stringify(user));
+      alert("Registration successful! Redirecting to login...");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
+
+
